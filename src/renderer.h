@@ -42,7 +42,7 @@ typedef struct
 typedef struct
 {
 	size_t length;
-	GLint* data;
+	GLuint* data;
 } VerticesIndicesData;
 
 typedef struct
@@ -57,8 +57,8 @@ typedef struct namesapce_GL_Renderer
 	void (*init)( short view_width, short view_height, GLuint shader_program_ID );
 	void (*set_type_of_draw)( DrawTypes type );
 	GLuint (*add_data)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData textures );
-	void (*draw)(GLuint vertex_array_ID);
+			ColorData *colors, TextureData *textures );
+	void (*draw)();
 	void (*set_view_coordinates)( short view_width, short view_height );
 	void (*set_background_color)( GLfloat red, GLfloat green, GLfloat blue );
 	void (*set_wireframe)(bool on);
