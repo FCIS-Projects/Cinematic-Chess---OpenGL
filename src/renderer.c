@@ -6,7 +6,6 @@
  */
 
 #include "renderer.h"
-//#include "shader.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
