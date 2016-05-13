@@ -9,46 +9,47 @@
 #define RENDERER_H_
 
 #include <GL/glew.h>
+#include "VRAM.h"
 #include "bool.h"
 
-// this enum is used to define the way we want OpenGL draw our vertices
-typedef enum {
-	STATIC_DRAW,
-	DYNAMIC_DRAW,
-	STREAM_DRAW
-} DrawTypes;
+//// this enum is used to define the way we want OpenGL draw our vertices
+//typedef enum {
+//	STATIC_DRAW,
+//	DYNAMIC_DRAW,
+//	STREAM_DRAW
+//} DrawTypes;
 
 // This struct hold the data of the textures
-typedef struct
-{
-	size_t length;
-	char* textures_paths[100];
-	int* textures_unit_numbers;
-} TextureData;
-
-// This struct hold the data of the vertices
-typedef struct
-{
-	size_t length;
-	GLfloat* data;
-	bool is_normalized;
-	GLuint layout_location_in_shader;
-} VerticesData;
-
-// This struct hold the data of the indices of the vertices
-typedef struct
-{
-	size_t length;
-	GLuint* data;
-} VerticesIndicesData;
-
-// This struct hold the data of the colors of the vertices
-typedef struct
-{
-	size_t length;
-	GLfloat* data;
-	GLuint layout_location_in_shader;
-} ColorData;
+//typedef struct
+//{
+//	size_t length;
+//	char* textures_paths[100];
+//	int* textures_unit_numbers;
+//} TextureData;
+//
+//// This struct hold the data of the vertices
+//typedef struct
+//{
+//	size_t length;
+//	GLfloat* data;
+//	bool is_normalized;
+//	GLuint layout_location_in_shader;
+//} VerticesData;
+//
+//// This struct hold the data of the indices of the vertices
+//typedef struct
+//{
+//	size_t length;
+//	GLuint* data;
+//} VerticesIndicesData;
+//
+//// This struct hold the data of the colors of the vertices
+//typedef struct
+//{
+//	size_t length;
+//	GLfloat* data;
+//	GLuint layout_location_in_shader;
+//} ColorData;
 
 // this design is act like a namespace in C launguage
 // this weird shape of function is a pointer of functions ( search about that )
