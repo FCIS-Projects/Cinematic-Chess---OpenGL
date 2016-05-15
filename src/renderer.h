@@ -10,6 +10,7 @@
 
 #include <GL/glew.h>
 #include "VRAM.h"
+#include "mesh.h"
 #include "bool.h"
 
 //// this enum is used to define the way we want OpenGL draw our vertices
@@ -73,6 +74,7 @@ typedef struct namesapce_GL_Renderer
 			ColorData *colors, TextureData *textures );
 	// DRAW
 	void (*draw)();
+	void (*draw_mesh)(Mesh *mesh);
 	// set ViewPort coordinate
 	void (*set_view_coordinates)( short view_width, short view_height );
 	// change the background color of the viewport

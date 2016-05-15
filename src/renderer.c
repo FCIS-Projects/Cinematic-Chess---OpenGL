@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "mesh.h"
 #include <GLFW/glfw3.h>
 
 #define BG_RED     0.0f
@@ -16,31 +17,19 @@
 #define BG_BLUE    0.0f
 #define BG_OPACITY 1.0f
 
-short _view_width;
-short _view_height;
+static short _view_width;
+static short _view_height;
 
-GLuint draw_type;
-GLuint _shader_program_ID;
+static GLuint draw_type;
+static GLuint _shader_program_ID;
 
-typedef struct
-{
-	size_t length;
-	GLuint *data;
-} Buffers;
-
-typedef struct{
-	VerticesData *vertices;
-	VerticesIndicesData *indices;
-	ColorData *colors;
-	TextureData *textures;
-} Mesh;
-
-Buffers *VAOs = NULL;
-Mesh *meshes = NULL;
-size_t glDataLength = 0;
+static VAOs *__VAOs = NULL;
+static GLuint __current_VAO_ID;
+static Mesh *meshes = NULL;
 
 static void init( short view_width, short view_height, GLuint shader_program_ID );
 static void draw();
+static void draw_mesh(Mesh *mesh);
 static void draw_triangles();
 static void set_view_coordinates( short view_width, short view_height );
 static void set_background_color( GLfloat red, GLfloat green, GLfloat blue );
@@ -59,6 +48,7 @@ namesapce_GL_Renderer const Renderer = {
 		set_type_of_draw,
 		add_data,
 		draw,
+		draw_mesh,
 		set_view_coordinates,
 		set_background_color,
 		set_wireframe,
@@ -74,9 +64,9 @@ void init( short view_width, short view_height,  GLuint shader_program_ID )
 	draw_type = GL_DYNAMIC_DRAW;
 
 	// initialize array of VAO
-	VAOs = malloc( sizeof(Buffers) );
-	VAOs->data = malloc( sizeof(size_t) * ( GL_MAX_VERTEX_ATTRIBS - 1 ) );
-	VAOs->length = 0;
+	__VAOs = malloc( sizeof(VAOs) );
+	__VAOs->data = malloc( sizeof(size_t) * ( GL_MAX_VERTEX_ATTRIBS - 1 ) );
+	__VAOs->length = 0;
 
 	meshes = malloc(sizeof(Mesh) * ( GL_MAX_VERTEX_ATTRIBS - 1 ) );
 
@@ -101,9 +91,10 @@ GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
 //	glGenVertexArrays(1, &vertex_array_ID);
 
 	// add the new VAO to the array
-	VAOs->data[ VAOs->length ] = vertex_array_ID;
-	(VAOs->length)++;
+	__VAOs->data[ __VAOs->length ] = vertex_array_ID;
+	(__VAOs->length)++;
 
+	// TODO:
 //	// append new VAO data into glData where index equals
 //	// the generated vertex_array_ID
 //	meshes[vertex_array_ID].vertices = vertices;
@@ -284,22 +275,10 @@ GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
 //	return buffer_ID;
 //}
 
-// TODO:
-void set_active_VAOs(  )
-{
-
-}
-
-// TODO:
-void delete_object( GLuint ID )
-{
-
-}
-
 void draw()
 {
 	// make sure we have VAOs
-	assert( VAOs != NULL );
+	assert( __VAOs != NULL );
 
 	// prushing the background with a color
 	// calculate Z-buffer
@@ -315,31 +294,39 @@ void draw()
 	draw_triangles();
 }
 
+void draw_mesh(Mesh *mesh)
+{
+	add_data( mesh->vertices, mesh->indices, mesh->colors, mesh->textures );
+	// TODO: we need to draw only this Mesh ? or the whole scene
+	draw();
+}
+
 void draw_triangles()
 {
-	GLuint VAO_ID;
+	// get active VAOs to draw them
+//	__VAOs = VRAM.get_active_VAOs();
 
-	for (int iii = 0; iii < VAOs->length; ++iii)
+	for (int iii = 0; iii < __VAOs->length; ++iii)
 	{
-		VAO_ID = VAOs->data[iii];
+		__current_VAO_ID = __VAOs->data[iii];
 
 		// BIND (enable this vertex array to be used)
-		glBindVertexArray(VAO_ID);
+		glBindVertexArray(__current_VAO_ID);
 
-		if( meshes[VAO_ID].indices != NULL )
+		if( meshes[__current_VAO_ID].indices != NULL )
 		{
 			/* arg #1: primitive type
 			 * arg #2: number of elements (verteces) we want to draw
 			 * arg #3: type of indices
 			 * arg #4: the offset between indices
 			 */
-			glDrawElements(GL_TRIANGLES, meshes[VAO_ID].indices->length,
+			glDrawElements(GL_TRIANGLES, meshes[__current_VAO_ID].indices->length,
 					GL_UNSIGNED_INT, (void*)(0) );
 		}
 
 		else
 		{
-			for (int jjj = 0; jjj < meshes[VAO_ID].vertices->length; jjj += 3)
+			for (int jjj = 0; jjj < meshes[__current_VAO_ID].vertices->length; jjj += 3)
 			{
 				/* draws primitives using the currently active shader,
 				 * the previously defined vertex attribute configuration
@@ -356,19 +343,6 @@ void draw_triangles()
 		// UNBIND
 		glBindVertexArray(0);
 	}
-}
-
-void clean()
-{
-	// free all the VAOs
-	glDeleteVertexArrays(VAOs->length, VAOs->data);
-
-	free(VAOs->data);
-	free(VAOs);
-	VAOs = NULL;
-
-	free(meshes);
-	meshes = NULL;
 }
 
 void set_view_coordinates( short view_width, short view_height )
@@ -416,4 +390,19 @@ void set_type_of_draw( DrawTypes type )
 		default:
 			fprintf(stderr, "This is not a draw type!");
 	};
+}
+
+void clean()
+{
+	// free all the VAOs
+	glDeleteVertexArrays(__VAOs->length, __VAOs->data);
+
+	free(__VAOs->data);
+	free(__VAOs);
+	__VAOs = NULL;
+
+	VRAM.clean();
+
+	free(meshes);
+	meshes = NULL;
 }

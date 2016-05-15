@@ -6,37 +6,55 @@
  */
 
 #include "VRAM.h"
+#include <stdlib.h>
 #include <assert.h>
 
-DrawTypes draw_type = DYNAMIC_DRAW;
+static DrawTypes draw_type = DYNAMIC_DRAW;
 
-void init();
+//static VAOs *__VAOs = NULL;
+//static size_t VAOs_length = 0;
+
+static void init();
 // TODO: add texture too
 static GLuint send_data( VerticesData *vertices, VerticesIndicesData *indices,
 		ColorData *colors, TextureData *textures );
 static GLuint send_vertices_data( VerticesData *vertices_data );
 static GLuint send_vertices_indices_data( VerticesIndicesData *indices_data );
 static GLuint send_vertices_color_data( ColorData *colors_data );
-void clean();
+//static VAOs* get_active_VAOs();
+static void clean();
 
 NameSpace_VRAM const VRAM = {
 	init,
 	send_data,
+//	get_active_VAOs,
 	clean
 };
 
 void init( DrawTypes __draw_type )
 {
 	draw_type = __draw_type;
+
+	// initialize array of VAO
+//	__VAOs = malloc( sizeof(VAOs) );
+//	__VAOs->data = malloc( sizeof(size_t) * ( GL_MAX_VERTEX_ATTRIBS - 1 ) );
+//	__VAOs->length = 0;
 }
 
 GLuint send_data( VerticesData *vertices, VerticesIndicesData *indices,
 		ColorData *colors, TextureData* textures )
 {
+//	// check if glData is un-intialized
+//	assert(__VAOs != NULL);
+
 	GLuint vertex_array_ID;
 
 	// generate a vertex array object
 	glGenVertexArrays(1, &vertex_array_ID);
+
+//	// add the new VAO to the array
+//	__VAOs->data[ __VAOs->length ] = vertex_array_ID;
+//	(__VAOs->length)++;
 
 	// bind the vertex array to configure it
 	glBindVertexArray(vertex_array_ID);
@@ -212,7 +230,31 @@ GLuint send_vertices_color_data( ColorData *colors_data )
 	return buffer_ID;
 }
 
-void clean()
+//VAOs* get_active_VAOs()
+//{
+//	return __VAOs;
+//}
+
+// TODO:
+void set_active_VAOs(  )
 {
 
+}
+
+// TODO:
+void delete_object( GLuint ID )
+{
+
+}
+
+void clean()
+{
+//	assert( __VAOs != NULL );
+
+	// free all the VAOs
+//	glDeleteVertexArrays(__VAOs->length, __VAOs->data);
+
+//	free(__VAOs->data);
+//	free(__VAOs);
+//	__VAOs = NULL;
 }
