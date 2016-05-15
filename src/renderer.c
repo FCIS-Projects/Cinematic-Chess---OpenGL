@@ -58,7 +58,7 @@ void init( short view_width, short view_height,  GLuint shader_program_ID )
 {
 	// Intialize the data
 	_view_width 	   = view_width;
-	_view_height 	   = _view_height;
+	_view_height 	   = view_height;
 	_shader_program_ID = shader_program_ID;
 
 	draw_type = GL_DYNAMIC_DRAW;
@@ -348,7 +348,7 @@ void draw_triangles()
 void set_view_coordinates( short view_width, short view_height )
 {
 	_view_width = view_width;
-	_view_height = _view_height;
+	_view_height = view_height;
 }
 
 void set_background_color( GLfloat red, GLfloat green, GLfloat blue )

@@ -12,18 +12,18 @@ Window::Window()
 	// check if initialize GLFW library is successful
 	if( !glfwInit() )
 	    	std::cerr << "OH NO O_O\n";
+
+	// set the version of openGL to 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+	// set GLFW to use the core profile
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
 void Window::setWindowProp(int target, int value)
 {
 	glfwWindowHint(target, value);
-
-//	// set the version of openGL to 3.3
-//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//
-//	// set GLFW to use the core profile
-//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 //
 //	// set the window to not to be resizable by the user
 //	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -51,6 +51,7 @@ GLFWwindow* Window::creatWindow(int width, int hight, const char* title)
 	glfwMakeContextCurrent(window);
 
 	prepare_glew();
+	glClear( GL_COLOR_BUFFER_BIT );
 
 	return window;
 }
@@ -70,6 +71,7 @@ void Window::glMainLoop(GLFWwindow* window)
     while(!glfwWindowShouldClose(window))
     {
     	glfwPollEvents();
+    	glClearColor(0.0, 0.0, 0.0, 0.0);
 		glfwSwapBuffers(window);
     }
 }
