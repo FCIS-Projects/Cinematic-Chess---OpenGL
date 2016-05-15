@@ -17,36 +17,36 @@
 #define TO_RADIAN(angle) (angle / 180.0f * PI )
 
 // Default camera values
-const GLfloat YAW        = -90.0f;
-const GLfloat PITCH      =  0.0f;
-const GLfloat ROLL       =  0.0f;
-const GLfloat SPEED      =  5.0f;
-const GLfloat SENSITIVTY =  0.5f;
-const GLfloat ZOOM       =  45.0f;
+static const GLfloat YAW        = -90.0f;
+static const GLfloat PITCH      =  0.0f;
+static const GLfloat ROLL       =  0.0f;
+static const GLfloat SPEED      =  5.0f;
+static const GLfloat SENSITIVTY =  0.5f;
+static const GLfloat ZOOM       =  45.0f;
 
 // Camera position
-vec3_t camera_position = NULL;
+static vec3_t camera_position = NULL;
 // The up direction. Camera’s y-axis
-vec3_t camera_up_axis = NULL;
+static vec3_t camera_up_axis = NULL;
 // The right direction. Camera’s x-axis
-vec3_t camera_right_axis = NULL;
+static vec3_t camera_right_axis = NULL;
 // The -ve of the look direction. Camera’s z-axis
-vec3_t camera_front_axis = NULL;
+static vec3_t camera_front_axis = NULL;
 // this used for saving the the intial value of camera_up
-vec3_t worldUp = NULL;
+static vec3_t worldUp = NULL;
 
 // Eular Angles
-GLfloat _yaw   = 0.0f;
-GLfloat _pitch = 0.0f;
-GLfloat _roll  = 0.0f;
+static GLfloat _yaw   = 0.0f;
+static GLfloat _pitch = 0.0f;
+static GLfloat _roll  = 0.0f;
 
 // Camera options
-GLfloat movement_speed 		 = 0.0f;
-GLfloat movement_sensitivity = 0.0f;
-GLfloat _zoom_aspect 		 = 0.0f;
+static GLfloat movement_speed 		 = 0.0f;
+static GLfloat movement_sensitivity = 0.0f;
+static GLfloat _zoom_aspect 		 = 0.0f;
 
 // this is TRUE if in a testing mode
-bool testing;
+static bool testing;
 
 // TODO: add a function that handle mouse movement
 
