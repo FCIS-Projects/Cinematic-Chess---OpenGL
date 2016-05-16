@@ -74,14 +74,14 @@ void init( short view_width, short view_height,  GLuint shader_program_ID )
 	glClearColor( BG_RED, BG_GREEN, BG_BLUE, BG_OPACITY );
 
 	// init `VRAM`
-	VRAM.init();
+	VRAM.init(GL_STATIC_DRAW);
 }
 
 GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
 		ColorData *colors, TextureData* textures, NormalsData *normals )
 {
-//	// check if glData is un-intialized
-//	assert(meshes != NULL);
+	// check if glData is un-intialized
+	assert(meshes != NULL);
 //
 	GLuint vertex_array_ID;
 
@@ -95,12 +95,12 @@ GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
 	(__VAOs->length)++;
 
 	// TODO:
-//	// append new VAO data into glData where index equals
-//	// the generated vertex_array_ID
-//	meshes[vertex_array_ID].vertices = vertices;
-//	meshes[vertex_array_ID].indices = indices;
-//	meshes[vertex_array_ID].textures = textures;
-//	meshes[vertex_array_ID].colors = colors;
+	// append new VAO data into meshes where index equals
+	// the generated vertex_array_ID
+	meshes[vertex_array_ID].vertices = vertices;
+	meshes[vertex_array_ID].indices = indices;
+	meshes[vertex_array_ID].textures = textures;
+	meshes[vertex_array_ID].colors = colors;
 //
 //	// bind the vertex array to configure it
 //	glBindVertexArray(vertex_array_ID);
