@@ -68,6 +68,16 @@ typedef struct
 	GLuint layout_location_in_shader;
 } ColorData;
 
+typedef struct
+{
+	// length of normals of the vertices data
+	size_t length;
+	// the normals of the vertices
+	GLuint* data;
+	// layout location in GLSL shader
+	GLuint layout_location_in_shader;
+} NormalsData;
+
 /* This struct is acting like namespace and class like in OOP at the sametime!
  * to use it:
  * for example: VRAM.init();
@@ -80,7 +90,7 @@ typedef struct {
 	// and VerticesIndicesData, ColorData and TextureData are optional
 	// which you can send them as `NULL`
 	GLuint (*send_data)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData *textures );
+			ColorData *colors, TextureData *textures, NormalsData *normals );
 //	VAOs* (*get_active_VAOs)();
 	// this acts like destructor
 	void (*clean)();

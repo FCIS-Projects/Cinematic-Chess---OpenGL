@@ -71,7 +71,7 @@ typedef struct namesapce_GL_Renderer
 	// and VerticesIndicesData, ColorData and TextureData are optional
 	// which you can send them as `NULL`
 	GLuint (*add_data)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData *textures );
+			ColorData *colors, TextureData *textures, NormalsData *normals );
 	// DRAW
 	void (*draw)();
 	void (*draw_mesh)(Mesh *mesh);

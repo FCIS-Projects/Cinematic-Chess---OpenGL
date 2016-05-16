@@ -12,7 +12,7 @@ static void init();
 //static void setup_mesh( Mesh *mesh );
 static void clean();
 static Mesh* create_mesh( VerticesData *vertices, VerticesIndicesData *indices,
-		ColorData *colors, TextureData* textures );
+		ColorData *colors, TextureData* textures, NormalsData *normals );
 
 Namespace_Mesh const MeshClass = {
 	init,
@@ -27,13 +27,14 @@ void init()
 }
 
 Mesh* create_mesh( VerticesData *vertices, VerticesIndicesData *indices,
-		ColorData *colors, TextureData* textures )
+		ColorData *colors, TextureData* textures, NormalsData *normals )
 {
 	Mesh *mesh = malloc( sizeof(Mesh) );
 	mesh->vertices = vertices;
 	mesh->indices = indices;
 	mesh->colors = colors;
 	mesh->textures = textures;
+	mesh->normals = normals;
 
 	return mesh;
 }

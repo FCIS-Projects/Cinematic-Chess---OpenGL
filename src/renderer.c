@@ -37,7 +37,7 @@ static void set_wireframe(bool on);
 static void set_type_of_draw( DrawTypes type );
 // TODO: add texture too
 static GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
-		ColorData *colors, TextureData *textures );
+		ColorData *colors, TextureData *textures, NormalsData *normals );
 //static GLuint send_vertices_data_to_VRAM( VerticesData *vertices_data );
 //static GLuint send_vertices_indices_data_to_VRAM( VerticesIndicesData *indices_data);
 //static GLuint send_vertices_color_data_to_VRAM( ColorData *colors_data );
@@ -78,14 +78,14 @@ void init( short view_width, short view_height,  GLuint shader_program_ID )
 }
 
 GLuint add_data( VerticesData *vertices, VerticesIndicesData *indices,
-		ColorData *colors, TextureData* textures )
+		ColorData *colors, TextureData* textures, NormalsData *normals )
 {
 //	// check if glData is un-intialized
 //	assert(meshes != NULL);
 //
 	GLuint vertex_array_ID;
 
-	vertex_array_ID = VRAM.send_data( vertices, indices, colors, textures );
+	vertex_array_ID = VRAM.send_data( vertices, indices, colors, textures, normals );
 //
 //	// generate a vertex array object
 //	glGenVertexArrays(1, &vertex_array_ID);
@@ -296,7 +296,8 @@ void draw()
 
 void draw_mesh(Mesh *mesh)
 {
-	add_data( mesh->vertices, mesh->indices, mesh->colors, mesh->textures );
+	add_data( mesh->vertices, mesh->indices, mesh->colors, mesh->textures,
+			mesh->normals );
 	// TODO: we need to draw only this Mesh ? or the whole scene
 	draw();
 }
