@@ -170,7 +170,7 @@ GLuint send_vertices_indices_data( VerticesIndicesData *indices_data )
 	// GL_STATIC_DRAW : the data will most likely not change at all or very rarely.
 	// GL_DYNAMIC_DRAW: the data is likely to change a lot.
 	// GL_STREAM_DRAW : the data will change every time it is drawn.
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) * indices_data->length,
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices_data->length,
 			indices_data->data, draw_type);
 
 	return buffer_ID;
