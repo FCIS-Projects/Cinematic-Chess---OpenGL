@@ -16,14 +16,26 @@ public:
 	unsigned char * data;//the variables in which save the data and path
 	int textureUnitNumber;//texture Unit number
 	void Bind(); //it activates the texture unite and bind the texture id
-	Texture(const std::string& fileName, int texUnit);//constaractor by3ml ay 7aga w kol 7aga lamo2a5za
+	Texture(const std::string& fileName, int texUnit);//constaractor 
+private:
+
 	virtual ~Texture();
 protected:
 private:
-	Texture(const Texture& texture) {}
-	void operator=(const Texture& texture) {}
-	GLuint m_texture;
+	GLuint m_texture;//the id of the texture
+	GLuint Texture_type;
+	GLuint Wrape_type;
+	GLuint Filter_type;
+	Texture(const Texture& texture);
+	void operator=(const Texture& texture);
+
+	void set_Texture_type(GLuint Texture_type_recived);
+	void set_Wrape_type(GLuint Wrape_type_recived);
+	void set_Filter_type(GLuint Filter_type_recived);
+	void set_texture_data();
+
+
 };
 
 #endif
-//GLuint loadBMP_custom(const char * imagepath);
+
