@@ -17,8 +17,6 @@ public:
 	int textureUnitNumber;//texture Unit number
 	void Bind(); //it activates the texture unite and bind the texture id
 	Texture(const std::string& fileName, int texUnit);//constaractor 
-private:
-
 	virtual ~Texture();
 protected:
 private:
@@ -32,7 +30,7 @@ private:
 	void set_Texture_type(GLuint Texture_type_recived);
 	void set_Wrape_type(GLuint Wrape_type_recived);
 	void set_Filter_type(GLuint Filter_type_recived);
-	void set_texture_data();
+	void setup_texture_data();
 
 
 };

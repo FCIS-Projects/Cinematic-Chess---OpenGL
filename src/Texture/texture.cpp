@@ -60,7 +60,7 @@ void Texture::set_Wrape_type(GLuint Wrape_type_recived)
 
 }
 
-void Texture::set_texture_data()
+void Texture::setup_texture_data()
 {
         glActiveTexture(textureUnitNumber);
          glGenTextures(1, &m_texture);
