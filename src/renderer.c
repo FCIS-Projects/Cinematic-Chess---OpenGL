@@ -74,6 +74,8 @@ void init( short view_width, short view_height,  GLuint shader_program_ID )
 	glClearColor( BG_RED, BG_GREEN, BG_BLUE, BG_OPACITY );
 
 	// init `VRAM`
+	// TODO: we need a separate function to handle draw type
+	// TODO: we need to add it as a parameter
 	VRAM.init(GL_STATIC_DRAW);
 }
 
