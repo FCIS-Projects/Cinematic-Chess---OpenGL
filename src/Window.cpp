@@ -7,12 +7,15 @@
 
 #include "Window.h"
 
+
+
 Window::Window()
 {
 	// check if initialize GLFW library is successful
 	if( !glfwInit() )
-	    	std::cerr << "OH NO O_O\n";
+	    	std::cerr << "Can't initialize GLFW!\n";
 
+	glfwWindowHint(GLFW_SAMPLES, 4);
 	// set the version of openGL to 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -21,12 +24,9 @@ Window::Window()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-void Window::setWindowProp(int target, int value)
+void Window::setWindowProp(GLuint target, GLuint value)
 {
 	glfwWindowHint(target, value);
-//
-//	// set the window to not to be resizable by the user
-//	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 }
 
 
@@ -41,19 +41,43 @@ void Window::setWindowProp(int target, int value)
 //	return true;
 //}
 
-GLFWwindow* Window::creatWindow(int width, int hight, const char* title)
+bool Window::createWindow(unsigned int width, unsigned int height, string title)
 {
 
 	// create window and return a pointer to the created window
-	GLFWwindow* window = glfwCreateWindow(width, hight, title, NULL, NULL);
+	window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+
+	if( window == NULL )
+	{
+		std::cerr << "Failed to open GLFW window\n";
+		return false;
+	}
 
 	// make the context of this window the current to be called
 	glfwMakeContextCurrent(window);
 
 	prepare_glew();
-	glClear( GL_COLOR_BUFFER_BIT );
 
-	return window;
+	VIEW_WIDTH  = width;
+	VIEW_HEIGHT = height;
+
+	return true;
+}
+
+void enable_property( GLenum property )
+{
+	glEnable(property);
+}
+
+void disable_property( GLenum property )
+{
+	glDisable(property);
+}
+
+void Window::set_viewport(unsigned int width, unsigned int height)
+{
+	this->VIEW_WIDTH = width;
+	this->VIEW_HEIGHT = height;
 }
 
 void Window::prepare_glew()
@@ -63,18 +87,17 @@ void Window::prepare_glew()
     if( glewInit() != GLEW_OK )
 		std::cerr << "failed to init GLEW\n";
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, VIEW_WIDTH, VIEW_HEIGHT);
 }
 
-void Window::glMainLoop(GLFWwindow* window)
-{
-    while(!glfwWindowShouldClose(window))
-    {
-    	glfwPollEvents();
-    	glClearColor(0.0, 0.0, 0.0, 0.0);
-		glfwSwapBuffers(window);
-    }
-}
+//void Window::glMainLoop()
+//{
+//    while(glfwWindowShouldClose(window) == GL_FALSE)
+//    {
+//    	glfwPollEvents();
+//		glfwSwapBuffers(window);
+//    }
+//}
 
 Window::~Window() {
 	// TODO Auto-generated destructor stub

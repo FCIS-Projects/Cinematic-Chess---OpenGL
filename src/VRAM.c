@@ -243,7 +243,7 @@ GLuint send_vertices_color_data( ColorData *colors_data )
 GLuint send_vertices_texture_data( TextureData *texture_data )
 {
 	assert( texture_data != NULL );
-	assert( texture_data->data != NULL );
+	assert( texture_data->UVdata != NULL );
 	assert( texture_data->length != 0 );
 
 	GLuint texture_ID;
@@ -268,7 +268,7 @@ GLuint send_vertices_texture_data( TextureData *texture_data )
 	// GL_DYNAMIC_DRAW: the data is likely to change a lot.
 	// GL_STREAM_DRAW : the data will change every time it is drawn.
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * texture_data->length,
-			texture_data->data, draw_type);
+			texture_data->UVdata, draw_type);
 
 	// Linking Vertex Attributes
 	/*	GLuint index 		   -> layout (location = 0), so index = 0
