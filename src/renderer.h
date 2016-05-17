@@ -26,7 +26,7 @@
 //	size_t length;
 //	char* textures_paths[100];
 //	int* textures_unit_numbers;
-//} TextureData;
+//} TexturesData;
 //
 //// This struct hold the data of the vertices
 //typedef struct
@@ -68,10 +68,10 @@ typedef struct namesapce_GL_Renderer
 	void (*set_type_of_draw)( DrawTypes type );
 	// add new data to be drawn
 	// where `VerticesData` must be defined ( with all its data )
-	// and VerticesIndicesData, ColorData and TextureData are optional
+	// and VerticesIndicesData, ColorData and TexturesData are optional
 	// which you can send them as `NULL`
 	GLuint (*add_data)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData *textures, NormalsData *normals );
+			ColorData *colors, TexturesData *textures, NormalsData *normals );
 	// DRAW
 	void (*draw)();
 	void (*draw_mesh)(Mesh *mesh);

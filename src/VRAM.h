@@ -18,6 +18,7 @@ typedef enum {
 	STREAM_DRAW
 } DrawTypes;
 
+//TODO: should VAOs be here ?
 typedef struct
 {
 	size_t length;
@@ -29,11 +30,25 @@ typedef struct
 {
 	// length of the texture data
 	size_t length;
+	// array of floats that holds textures vertices data - as `x` and `y`
+	GLfloat* UVdata;
 	// array of `string` holds the pathes of the textures
-	char* textures_paths[100];
+	char texture_path[100];
 	// array of `int` holds the unit number of textures
-	int* textures_unit_numbers;
+	int texture_unit_number;
+	// layout location in GLSL shader
+	GLuint layout_location_in_shader;
 } TextureData;
+
+// This struct hold the data of the textures
+typedef struct
+{
+	// length of the textures
+	size_t length;
+	// array of textures for each mesh
+	TextureData* textures;
+
+} TexturesData;
 
 // This struct hold the data of the vertices
 typedef struct
@@ -90,7 +105,7 @@ typedef struct {
 	// and VerticesIndicesData, ColorData and TextureData are optional
 	// which you can send them as `NULL`
 	GLuint (*send_data)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData *textures, NormalsData *normals );
+			ColorData *colors, TexturesData *textures, NormalsData *normals );
 //	VAOs* (*get_active_VAOs)();
 	// this acts like destructor
 	void (*clean)();

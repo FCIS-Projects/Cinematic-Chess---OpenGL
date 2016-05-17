@@ -14,14 +14,14 @@ typedef struct{
 	VerticesData *vertices;
 	VerticesIndicesData *indices;
 	ColorData *colors;
-	TextureData *textures;
+	TexturesData *textures;
 	NormalsData *normals;
 } Mesh;
 
 typedef struct {
 	void (*init)();
 	Mesh* (*create_mesh)( VerticesData *vertices, VerticesIndicesData *indices,
-			ColorData *colors, TextureData* textures, NormalsData *normals );
+			ColorData *colors, TexturesData* textures, NormalsData *normals );
 //	void (*setup_mesh)(Mesh *mesh);
 	void (*clean)();
 } Namespace_Mesh ;
