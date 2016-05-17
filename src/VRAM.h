@@ -38,6 +38,10 @@ typedef struct
 	int texture_unit_number;
 	// layout location in GLSL shader
 	GLuint layout_location_in_shader;
+
+	GLuint texture_type;
+	GLuint texture_filter;
+	GLuint texture_wrape;
 } TextureData;
 
 // This struct hold the data of the textures

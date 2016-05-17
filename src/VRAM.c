@@ -253,11 +253,11 @@ GLuint send_vertices_texture_data( TextureData *texture_data )
 	// 1 -> one vertices_buffer_ID
 	glGenTextures(1, &texture_ID);
 
-//	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(texture_data->texture_unit_number);
 
 	// binds that buffer object name to the target (GL_vertex_array_ID)
 	// set vertices_buffer_ID as the current GL_vertex_array_ID.
-	glBindTexture(GL_TEXTURE_2D, texture_ID);
+	glBindTexture(texture_data->texture_type, texture_ID);
 
 	/* Copy "Array Buffer" from CPU-memory to GPU-buffer memory */
 	// arg 1: type of buffer
@@ -292,6 +292,8 @@ GLuint send_vertices_texture_data( TextureData *texture_data )
 	// enable vertex attribute as it is disabled by default
 	// argument #1: vertex attribute location
 	glEnableVertexAttribArray(texture_data->layout_location_in_shader);
+
+	glActiveTexture(0);
 
 	return texture_ID;
 }
