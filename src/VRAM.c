@@ -288,7 +288,7 @@ GLuint send_vertices_normals_data( NormalsData *normals_data )
 
 	// enable vertex attribute as it is disabled by default
 	// argument #1: vertex attribute location
-	glEnableVertexAttribArray(vertices_data->layout_location_in_shader);
+	glEnableVertexAttribArray(normals_data->layout_location_in_shader);
 
 	return buffer_ID;
 }
