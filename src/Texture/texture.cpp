@@ -1,6 +1,6 @@
 #include "texture.h"
 #include "Texture Loader/stb_image.h"
-
+#include "../VRAM.h"
 #include <iostream>
 using namespace std;
 
@@ -62,8 +62,8 @@ void Texture::set_Wrape_type(GLuint Wrape_type_recived)
 
 void Texture::setup_texture_data()
 {
-        glActiveTexture(textureUnitNumber);
-         glGenTextures(1, &m_texture);
+        //glActiveTexture(textureUnitNumber);
+//         glGenTextures(1, &m_texture);
 
          glBindTexture(Texture_type, m_texture);
          if(Texture_type==GL_TEXTURE_CUBE_MAP_POSITIVE_X)
